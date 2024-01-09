@@ -54,7 +54,7 @@ async updateUser(req, res) {
   },
   async deleteUser(req, res) {
     try {
-      const user = await user.findOneAndRemove(
+      const user = await User.findOneAndRemove(
         { _id: req.params.userId });
 
       if (!user) {
