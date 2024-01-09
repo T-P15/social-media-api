@@ -68,7 +68,10 @@ async updateThought(req, res) {
 
     async createReaction(req, res) {   
         try {
-          const reaction = await Reaction.create(req.body);
+          const reaction = await Thought.findOneAndUpdate( 
+            { _id: req.params.thoughtId },
+            { $addToSet: { reactions: req.body} },
+            { runValidators: true, new: true });
           res.json(reaction)
         } catch (err) {
           res.status(500).json(err);
