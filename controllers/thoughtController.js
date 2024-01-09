@@ -97,4 +97,22 @@ async updateThought(req, res) {
           res.status(500).json(err);
         }
       },
+
+      async updateThought(req, res) {
+        try {
+          const thought = await Thought.findOneAndUpdate(
+            { _id: req.params.thoughtId },
+            { $set: req.body },
+            { runValidators: true, new: true }
+          );
+    
+          if (!thought) {
+            res.status(404).json({ message: 'No Thought with this id!' });
+          }
+    
+          res.json(thought);
+        } catch (err) {
+          res.status(500).json(err);
+        }
+      },
     }
